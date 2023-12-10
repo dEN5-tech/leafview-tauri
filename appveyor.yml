@@ -26,7 +26,7 @@ install:
   - rustc -vV
   - cargo -vV
   - cargo install tauri-cli
-  - pnpm install
+  - npm install
 
 build_script:
   - cargo tauri build
