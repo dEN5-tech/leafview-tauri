@@ -9,15 +9,6 @@ environment:
   # Stable 64-bit MSVC
     - channel: stable
       target: x86_64-pc-windows-msvc
-  # Stable 32-bit MSVC
-    - channel: stable
-      target: i686-pc-windows-msvc
-  # Stable 64-bit GNU
-    - channel: stable
-      target: x86_64-pc-windows-gnu
-  # Stable 32-bit GNU
-    - channel: stable
-      target: i686-pc-windows-gnu
 
 init:
   - git config --global core.autocrlf input
@@ -35,6 +26,7 @@ install:
   - rustc -vV
   - cargo -vV
   - cargo install tauri-cli
+  - pnpm install
 
 build_script:
   - cargo tauri build
