@@ -26,7 +26,17 @@ install:
   - rustc -vV
   - cargo -vV
   - cargo install tauri-cli
+
+  # Install Node.js version 20
+  - ps: Install-Product node 20
+
+  # Verify Node.js installation
+  - node -v
+  - npm -v
+
+  # Install project dependencies
   - npm install
+
 
 build_script:
   - cargo tauri build
