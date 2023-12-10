@@ -27,8 +27,11 @@ install:
   - cargo -vV
   - cargo install tauri-cli
 
-  # Install Node.js version 20
+  # Install Node.js version 20 using nvm
   - ps: Install-Product node 20
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-NVM.ps1'))
+  - nvm install 20
+  - nvm use 20
 
   # Verify Node.js installation
   - node -v
@@ -57,5 +60,46 @@ artifacts:
     name: Setup-msi-zip
 
 deploy:
-  provider: Environment
-  name: GitHub Releases crmbar-tauri
+- provider: GitHub
+  auth_token:
+    secure: ${{ secrets.GITHUB_TOKEN }}
+  artifact: Setup
+  draft: false
+  file: src-tauri\target\release\bundle\nsis\crmbar-tauri*setup.exe
+  on:
+    appveyor_repo_tag: true
+  release: crmbar-tauri-v$(appveyor_build_version)
+  description: 'Automated Build Release'
+
+- provider: GitHub
+  auth_token:
+    secure: ${{ secrets.GITHUB_TOKEN }}
+  artifact: Setup-zip
+  draft: false
+  file: src-tauri\target\release\bundle\nsis\crmbar-tauri*setup.nsis*
+  on:
+    appveyor_repo_tag: true
+  release: crmbar-tauri-v$(appveyor_build_version)
+  description: 'Automated Build Release'
+
+- provider: GitHub
+  auth_token:
+    secure: ${{ secrets.GITHUB_TOKEN }}
+  artifact: Setup-msi
+  draft: false
+  file: src-tauri\target\release\bundle\msi\crmbar-tauri*.msi
+  on:
+    appveyor_repo_tag: true
+  release: crmbar-tauri-v$(appveyor_build_version)
+  description: 'Automated Build Release'
+
+- provider: GitHub
+  auth_token:
+    secure: ${{ secrets.GITHUB_TOKEN }}
+  artifact: Setup-msi-zip
+  draft: false
+  file: src-tauri\target\release\bundle\msi\crmbar-tauri*.msi*
+  on:
+    appveyor_repo_tag: true
+  release: crmbar-tauri-v$(appveyor_build_version)
+  description: 'Automated Build Release'
