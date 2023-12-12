@@ -44,16 +44,16 @@ build_script:
 test: off
 
 artifacts:
-  - path: src-tauri\target\release\bundle\nsis\crmbar-tauri*setup.exe
+  - path: src-tauri\target\release\bundle\nsis\.*-setup.exe
     name: Setup
 
-  - path: src-tauri\target\release\bundle\nsis\crmbar-tauri*setup.nsis*
+  - path: src-tauri\target\release\bundle\nsis\.*-setup.nsis
     name: Setup-zip
 
-  - path: src-tauri\target\release\bundle\msi\crmbar-tauri*.msi
+  - path: src-tauri\target\release\bundle\msi\.*\.msi
     name: Setup-msi
 
-  - path: src-tauri\target\release\bundle\msi\crmbar-tauri*.msi*
+  - path: src-tauri\target\release\bundle\msi\.*\.msi.zip
     name: Setup-msi-zip
 
 deploy:
@@ -62,7 +62,7 @@ deploy:
     secure: ${{ secrets.GITHUB_TOKEN }}
   artifact: Setup
   draft: false
-  file: src-tauri\target\release\bundle\nsis\crmbar-tauri*setup.exe
+  file: src-tauri\target\release\bundle\nsis\.*-setup.exe
   on:
     appveyor_repo_tag: true
   release: crmbar-tauri-v$(appveyor_build_version)
@@ -73,7 +73,7 @@ deploy:
     secure: ${{ secrets.GITHUB_TOKEN }}
   artifact: Setup-zip
   draft: false
-  file: src-tauri\target\release\bundle\nsis\crmbar-tauri*setup.nsis*
+  file: src-tauri\target\release\bundle\nsis\.*-setup.nsis
   on:
     appveyor_repo_tag: true
   release: crmbar-tauri-v$(appveyor_build_version)
@@ -84,7 +84,7 @@ deploy:
     secure: ${{ secrets.GITHUB_TOKEN }}
   artifact: Setup-msi
   draft: false
-  file: src-tauri\target\release\bundle\msi\crmbar-tauri*.msi
+  file: src-tauri\target\release\bundle\msi\.*\.msi
   on:
     appveyor_repo_tag: true
   release: crmbar-tauri-v$(appveyor_build_version)
@@ -95,8 +95,9 @@ deploy:
     secure: ${{ secrets.GITHUB_TOKEN }}
   artifact: Setup-msi-zip
   draft: false
-  file: src-tauri\target\release\bundle\msi\crmbar-tauri*.msi*
+  file: src-tauri\target\release\bundle\msi\.*\.msi.zip
   on:
     appveyor_repo_tag: true
   release: crmbar-tauri-v$(appveyor_build_version)
   description: 'Automated Build Release'
+
