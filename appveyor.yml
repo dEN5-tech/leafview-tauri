@@ -29,9 +29,6 @@ install:
 
   # Install Node.js version 20 using nvm
   - ps: Install-Product node 20
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-NVM.ps1'))
-  - nvm install 20
-  - nvm use 20
 
   # Verify Node.js installation
   - node -v
